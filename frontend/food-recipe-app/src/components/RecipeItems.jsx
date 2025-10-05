@@ -1,12 +1,14 @@
 
 import React from 'react'
-import { useLoaderData } from 'react-router-dom'
-import foodRecipe from '../assets/biryanipng.png'
+import { Link, useLoaderData } from 'react-router-dom'
 import { RxStopwatch } from "react-icons/rx";
 import { FaRegHeart } from "react-icons/fa6";
+import { MdEdit } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
 
 function RecipeItems() {
     const allRecipes = useLoaderData()
+    let path = window.location.pathname === "/myRecipe"? true: false
     console.log(allRecipes)
   return (
     <>
@@ -20,7 +22,11 @@ function RecipeItems() {
                                 <div className='title'>{item.title}</div>
                                 <div className='icons'>
                                     <div className='timer'><RxStopwatch />{item.time}</div>
-                                    <FaRegHeart />
+                                    {(!path)?<FaRegHeart /> :
+                                    <div className='action'>
+                                    <Link to = {`/editRecipe/${item._id}`} className='editIcon'><MdEdit /></Link>
+                                    <MdDelete className='deleteIcon'/>
+                                    </div>}
                                 </div>
 
                             </div>
